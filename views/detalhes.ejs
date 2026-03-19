@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Curso</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/script.js" defer></script>
+</head>
+<body>
+
+<h1><%= curso.nome %></h1>
+
+<div class="detalhes">
+    <p><strong>Descrição:</strong> <%= curso.descricao %></p>
+    <p><strong>Carga Horária:</strong> <%= curso.carga %></p>
+    <p><strong>Instrutor:</strong> <%= curso.instrutor %></p>
+    <p><strong>Nível:</strong> <%= curso.nivel %></p>
+    <p><strong>Vagas disponíveis:</strong> <%= curso.vagas %></p>
+
+    <p><strong>Preço unitário:</strong> R$ 
+        <span id="preco"><%= curso.preco %></span>
+    </p>
+
+    <label>Quantidade:</label>
+    <input type="number" id="quantidade" min="1" value="1">
+
+    <h3>Total: R$ <span id="total"><%= curso.preco %></span></h3>
+</div>
+
+</body>
+</html>

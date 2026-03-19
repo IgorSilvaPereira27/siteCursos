@@ -1,0 +1,19 @@
+{
+  "name": "sitecursos",
+  "version": "1.0.0",
+  "description": "site de cursos para a disciplina de programação para internet da Unoeste",
+  "license": "ISC",
+  "author": "Igor Pereira",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "mysql2": "^3.20.0"
+  }
+}

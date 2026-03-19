@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cursos Online</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Cursos de TI</h1>
+    <nav>
+        <a href="/">Home</a>
+        <% if (session && session.logged) { %>
+            <a href="/logout">Logout</a>
+        <% } else { %>
+            <a href="/login">Login</a>
+        <% } %>
+    </nav>
+</header>
+
+<div class="container">
+    <% cursos.forEach(curso => { %>
+        <div class="card">
+            <h2><%= curso.nome %></h2>
+            <p><strong>Início:</strong> <%= curso.inicio %></p>
+            <p><strong>Duração:</strong> <%= curso.duracao %></p>
+            <p><strong>Preço:</strong> R$ <%= curso.preco %></p>
+            <a href="/detalhes/<%= curso.id %>">
+                <button>Ver Detalhes</button>
+            </a>
+        </div>
+    <% }) %>
+</div>
+
+</body>
+</html>
