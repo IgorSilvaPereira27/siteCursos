@@ -1,5 +1,4 @@
 import express from "express";
-import CursoRepository from "./repository/CursoRepository.js";
 import session from "express-session";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -24,15 +23,11 @@ app.use(session({
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-
-// Usuário fixo
 const USER = {
     username: "admin",
     password: "1234"
 };
 
-
-// Lista de cursos (frontend)
 const cursos = [
     {
         id: 1,
@@ -60,8 +55,6 @@ const cursos = [
     }
 ];
 
-
-// Middleware de autenticação
 function auth(req, res, next) {
     if (req.session.logged) {
         next();
@@ -70,8 +63,6 @@ function auth(req, res, next) {
     }
 }
 
-
-// Página inicial
 app.get("/", (req, res) => {
     res.render("home", {
         cursos,
@@ -79,14 +70,10 @@ app.get("/", (req, res) => {
     });
 });
 
-
-// Página de login
 app.get("/login", (req, res) => {
     res.render("login");
 });
 
-
-// Processamento do login
 app.post("/login", (req, res) => {
     const { username, password } = req.body;
 
@@ -98,18 +85,13 @@ app.post("/login", (req, res) => {
     }
 });
 
-
-// Logout
 app.get("/logout", (req, res) => {
     req.session.destroy(() => {
         res.redirect("/");
     });
 });
 
-
-// Página de detalhes do curso
 app.get("/detalhes/:id", auth, (req, res) => {
-
     const curso = cursos.find(c => c.id == req.params.id);
 
     if (!curso) {
@@ -117,60 +99,10 @@ app.get("/detalhes/:id", auth, (req, res) => {
     }
 
     res.render("detalhes", { curso });
-
-});
-
-
-// ==========================
-// ROTAS DO BACKEND (CRUD)
-// ==========================
-
-
-// Criar curso
-app.post("/cursos", async (req, res) => {
-
-    await CursoRepository.inserir(req.body);
-
-    res.send("Curso criado");
-
-});
-
-
-// Listar cursos
-app.get("/cursos", async (req, res) => {
-
-    const cursos = await CursoRepository.listar();
-
-    res.json(cursos);
-
-});
-
-
-// Atualizar curso
-app.put("/cursos/:id", async (req, res) => {
-
-    await CursoRepository.atualizar(req.params.id, req.body);
-
-    res.send("Curso atualizado");
-
-});
-
-
-// Excluir curso
-app.delete("/cursos/:id", async (req, res) => {
-
-    await CursoRepository.excluir(req.params.id);
-
-    res.send("Curso excluído");
-
-});
-
-
-// Inicialização do servidor
-app.listen(porta, () => {
-
-    console.log(`Servidor rodando em http://localhost:${porta}`);
-
 });
 
 app.use("/api/cursos", cursoRoutes);
+
+app.listen(porta, () => {
+    console.log(`Servidor rodando em http://localhost:${porta}`);
+});
